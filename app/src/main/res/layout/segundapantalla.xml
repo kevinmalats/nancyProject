@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/fondololograstes"
+    android:orientation="vertical"
+    tools:context=".segundapantalla">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/fondoinicio"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="156dp"
+            app:srcCompat="@drawable/logot" />
+
+        <TextView
+            android:id="@+id/txtbienvenido"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/boogaloo"
+            android:gravity="top"
+            android:text="Bienvenido!"
+            android:textAlignment="center"
+            android:textColor="#FF5722"
+            android:textSize="45sp" />
+
+        <TextView
+            android:id="@+id/txtnombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/boogaloo"
+            android:text="Escribe tu Nombre"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="35sp" />
+
+        <EditText
+            android:id="@+id/ingresanombre"
+            android:layout_width="342dp"
+            android:layout_height="102dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/fondoelemento1"
+            android:fontFamily="@font/boogaloo"
+            android:gravity="center"
+            android:inputType="text"
+            android:textAlignment="center" />
+        <TextView
+            android:id="@+id/txtclave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/boogaloo"
+            android:text="Escribe tu Clave"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="35sp" />
+        <EditText
+            android:id="@+id/ingresaclave"
+            android:layout_width="342dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/fondoelemento1"
+            android:fontFamily="@font/boogaloo"
+            android:gravity="center"
+            android:inputType="text"
+            android:textAlignment="center" />
+        <EditText
+            android:id="@+id/txtedad"
+            android:layout_width="342dp"
+            android:layout_height="80dp"
+            android:inputType="date"
+            android:textColorLink="#FFFFFF"
+            android:textSize="35sp"
+            android:hint="Selecciona tu edad"
+            android:fontFamily="@font/boogaloo"
+            android:gravity="center_horizontal"
+            android:layout_gravity="center_horizontal"
+            android:maxLines="1"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#FFFFFF"
+            android:focusable="false"
+            android:clickable="true"/>
+        <ImageView
+            android:id="@+id/registrar"
+            android:layout_width="match_parent"
+            android:layout_height="156dp"
+            app:srcCompat="@drawable/empezar"
+            android:layout_gravity="center_horizontal"/>
+    </LinearLayout>
+
+</LinearLayout>

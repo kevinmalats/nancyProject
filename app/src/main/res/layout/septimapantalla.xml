@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/fondonivel3"
+    android:orientation="vertical"
+    tools:context=".septimapantalla">
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/regresar"
+            android:layout_width="95dp"
+            android:layout_height="149dp"
+            app:srcCompat="@drawable/atras" />
+
+        <TextView
+            android:id="@+id/txtavatar"
+            android:layout_width="185dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|center_horizontal"
+            android:fontFamily="@font/boogaloo"
+            android:gravity="top"
+            android:text="Estas Listo?"
+            android:textAlignment="center"
+            android:textColor="#6B4A02"
+            android:textSize="35sp" />
+
+    </LinearLayout>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal">
+
+            <ImageView
+                android:id="@+id/fruta1"
+                android:layout_width="60dp"
+                android:layout_height="70dp"/>
+
+            <ImageView
+                android:id="@+id/fruta2"
+                android:layout_width="60dp"
+                android:layout_height="70dp"/>
+
+            <ImageView
+                android:id="@+id/fruta3"
+                android:layout_width="60dp"
+                android:layout_height="70dp"/>
+            <ImageView
+                android:id="@+id/fruta4"
+                android:layout_width="60dp"
+                android:layout_height="70dp"
+                android:layout_marginLeft="20dp"/>
+
+            <ImageView
+                android:id="@+id/fruta5"
+                android:layout_width="60dp"
+                android:layout_height="70dp"/>
+
+            <ImageView
+                android:id="@+id/fruta6"
+                android:layout_width="60dp"
+                android:layout_height="70dp"/>
+
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="10dp">
+
+            <ImageView
+                android:id="@+id/fruta7"
+                android:layout_width="60dp"
+                android:layout_height="70dp" />
+
+            <ImageView
+                android:id="@+id/fruta8"
+                android:layout_width="60dp"
+                android:layout_height="70dp"/>
+
+            <ImageView
+                android:id="@+id/fruta9"
+                android:layout_width="60dp"
+                android:layout_height="70dp"/>
+
+
+        </TableRow>
+    </TableLayout>
+    <TextView
+        android:id="@+id/txtpregunta"
+        android:layout_width="185dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|center_horizontal"
+        android:fontFamily="@font/boogaloo"
+        android:gravity="top"
+        android:text="¿Que frutas se parecen?"
+        android:textAlignment="center"
+        android:textColor="#6B4A02"
+        android:textSize="40sp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal">
+
+
+        <ImageView
+            android:id="@+id/frutaadivinar1"
+            android:layout_width="60dp"
+            android:layout_height="70dp"/>
+
+        <ImageView
+            android:id="@+id/frutaadivinar2"
+            android:layout_width="60dp"
+            android:layout_height="70dp"/>
+
+        <ImageView
+            android:id="@+id/frutaadivinar3"
+            android:layout_width="60dp"
+            android:layout_height="70dp"/>
+
+    </LinearLayout>
+
+</LinearLayout>
