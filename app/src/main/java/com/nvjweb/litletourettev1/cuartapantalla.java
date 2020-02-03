@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.nvjweb.litletourettev1.tareas.TareaInternet;
 
 public class cuartapantalla extends AppCompatActivity {
     private static final String PREFS_KEY = "PREFS";
@@ -26,7 +27,8 @@ public class cuartapantalla extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.cuartapantalla);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
+        TareaInternet tareaInternet=new TareaInternet(getApplicationContext());
+        tareaInternet.execute();
         db = FirebaseFirestore.getInstance();
         txtnombre=findViewById(R.id.txtnombre);
         imgavatar=findViewById(R.id.imgavatar);

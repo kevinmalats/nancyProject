@@ -46,4 +46,15 @@ public class Usuario {
     public String getId() {
         return id;
     }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "userName='" + userName + '\'' +
+                ", password='" + password + '\'' +
+                ", id='" + id + '\'' +
+                ", fechaNacimiento='" + fechaNacimiento + '\'' +
+                ", avatar='" + avatar + '\'' +
+                '}';
+    }
 }

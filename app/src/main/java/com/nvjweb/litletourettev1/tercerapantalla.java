@@ -8,6 +8,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 
+import com.nvjweb.litletourettev1.tareas.TareaInternet;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class tercerapantalla extends AppCompatActivity {
