@@ -1,5 +1,6 @@
 package com.nvjweb.litletourettev1.tareas;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -19,15 +20,22 @@ import com.nvjweb.litletourettev1.primerapantalla;
 import com.nvjweb.litletourettev1.segundapantalla;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -43,6 +51,7 @@ public Context contex;
     public TareaInternet(Context contex) {
         this.contex = contex;
         dbUser= new UsuarioHelper(contex.getApplicationContext());
+        user= new Usuario();
     }
     @Override
     protected void onPreExecute() {
@@ -54,93 +63,169 @@ public Context contex;
            if(subirDatos()){
                //return "ok";
                break;
-            }
+            }else{
+              break;
+           }
             }
         }
         return "ok";
     }
    private boolean subirDatos(){
         obterData();
+     //   Log.i("id",user.getId());
+        if(user.getId()!=null) {
+
+
+            if (getWebServiceResponseData()) {
+                if (updateUser())
+                    return true;
+            }
+        }
+        return false;
+    }
+    protected boolean getWebServiceResponseData() {
+
+
+
+        ArrayList<JSONObject> listString= new ArrayList<JSONObject>();
+        JSONArray jsonA=null;
+        jsonA=new JSONArray();
+        Log.i("respuesta", "nada");
+        Log.i("respuesta", user.toString());
+
+
+            JSONObject parametrosPost= new JSONObject();
+
+
+
+            try {
+                parametrosPost.put("clave", user.getPassword());
+                parametrosPost.put("nombre", user.getUserName());
+                parametrosPost.put("nacimiento",user.getFechaNacimiento());
+                parametrosPost.put("avatar", user.getAvatar());
+            } catch (JSONException e) {
+                e.printStackTrace();
+
+
+
+
+
+        }
+
+
+
+        String result = null;
+
+        URL url= null;
+        HttpURLConnection urlConnection=null;
+
+        try {
+
+            //se crea conocexionde al api
+            url = new URL(path);
+            urlConnection = (HttpURLConnection) url.openConnection();
+            //crear json para enviar post
+
+
+            urlConnection.setReadTimeout(15000);
+            urlConnection.setConnectTimeout(15000);
+
+            urlConnection.setRequestMethod("POST"); // SE puede cambiar por delete, get, put etc;
+            urlConnection.setDoInput(true);
+            urlConnection.setDoOutput(true);
+
+
+            //OBTEENR RESUTADO DE REQUEST
+            OutputStream os = urlConnection.getOutputStream();
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+            writer.write(getPostDataString(parametrosPost));
+            writer.flush();
+            writer.close();
+            os.close();
+            int code = urlConnection.getResponseCode();
+            Log.i("data", code + "");
+            if (code != 200) {
+
+                //  throw new IOException("Invalid response from server: " + code);
+                return false;
+            } else {
+
+                StringBuffer response = new StringBuffer();
+                BufferedReader rd = new BufferedReader(new InputStreamReader(
+                        urlConnection.getInputStream()));
+                String line;
+                while ((line = rd.readLine()) != null) {
+                    Log.i("data", line);
+
+
+                    response.append(line);
+
+                    String input;
+
+                    while ((input = rd.readLine()) != null) {
+                        response.append(input);
+                    }
+
+
+                    String json = "";
+                    json = response.toString();
+                    JSONObject jsonObject2 = new JSONObject(json);
+
+
+
+                    Log.i("mens", "tu madre");
+                    return true;
+
+                    // Toast.makeText(httpContext, "Bienvenido"+email+"", Toast.LENGTH_SHORT).show();
+
+                }
+                }
+            } catch(Exception e){
+                e.printStackTrace();
+            } finally{
+                if (urlConnection != null) {
+                    urlConnection.disconnect();
+                }
+            }
 
 
         return true;
     }
-    protected void getWebServiceResponseData() {
+    private String getPostDataString(JSONObject params) throws Exception {
 
-        HttpURLConnection urlConnection = null;
-
-        ArrayList<Map> listString= new ArrayList<Map>();
-
-        for (Usuario user:listUsuario
-             ) {
-            Map<String, String> stringMap = new HashMap<>();
-            stringMap.put("nombre", ""+user.getUserName());
-            stringMap.put("clave", ""+user.getPassword());
-            stringMap.put("nacimiento", ""+user.getFechaNacimiento());
-            stringMap.put("avatar", ""+user.getAvatar());
-            listString.add(stringMap);
-
-        }
+        StringBuilder result = new StringBuilder();
+        boolean first = true;
 
 
-        String requestBody = segundapantalla.Utils.buildPostParameters(listString);
-        try {
-            urlConnection = (HttpURLConnection) segundapantalla.Utils.makeRequest("POST", path, null, "application/x-www-form-urlencoded", requestBody);
-            InputStream inputStream;
-            if (urlConnection.getResponseCode() < HttpURLConnection.HTTP_BAD_REQUEST) {
-                inputStream = urlConnection.getInputStream();
-            } else {
-                inputStream = urlConnection.getErrorStream();
-            }
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-            String temp, response = "";
-            while ((temp = bufferedReader.readLine()) != null) {
-                response += temp;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            
-        } finally {
-            if (urlConnection != null) {
-                urlConnection.disconnect();
-            }
-        }
 
-        try {
-            URL url=new URL("https://littletourettebase.herokuapp.com/ultimoidusuario");
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setReadTimeout(15000);
-            conn.setConnectTimeout(15000);
-            conn.setRequestMethod("GET");
-            int responseCode = conn.getResponseCode();
-            Log.d("TAG", "Response code: " + responseCode);
-            if (responseCode == HttpsURLConnection.HTTP_OK) {
-                // Reading response from input Stream
-                BufferedReader in = new BufferedReader(
-                        new InputStreamReader(conn.getInputStream()));
-                String output;
-                response = new StringBuffer();
+            Iterator<String> itr = params.keys();
+            while (itr.hasNext()) {
 
-                while ((output = in.readLine()) != null) {
-                    response.append(output);
-                }
-                in.close();
-            }
-        } catch(Exception e){
-            e.printStackTrace();
-        }
-        try {
-            responseText = response.toString();
-            JSONArray jsonarray = new JSONArray(responseText);
+                String key = itr.next();
+                Object value = params.get(key);
 
-            for (int i=0;i<jsonarray.length();i++){
-                JSONObject jsonobject = jsonarray.getJSONObject(0);
+                if (first)
+                    first = false;
+                else
+                    result.append("&");
 
+                result.append(URLEncoder.encode(key, "UTF-8"));
+                result.append("=");
+                result.append(URLEncoder.encode(value.toString(), "UTF-8"));
             }
 
-        } catch (Exception e) {
-        }
 
+        return result.toString();
+    }
+    private boolean updateUser(){
+        SQLiteDatabase db = dbUser.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(UsuarioContract.UsuariosEntry.GUARDADO,"true");
+        Log.i("actalizando", "updateUser: "+user.getId());
+
+        long newRowId =  db.update(UsuarioContract.UsuariosEntry.TABLE_NAME, contentValues, "_ID = ?",new String[] { user.getId() });
+        Log.i("actalizando", "updateUser: "+newRowId);
+        return true;
     }
     private void obterData() {
         SQLiteDatabase db = dbUser.getWritableDatabase();
@@ -148,14 +233,17 @@ public Context contex;
         String[] projection = {
                 BaseColumns._ID,
                 UsuarioContract.UsuariosEntry.USERNAME,
-                UsuarioContract.UsuariosEntry.PASSWORD
+                UsuarioContract.UsuariosEntry.PASSWORD,
+                UsuarioContract.UsuariosEntry.GUARDADO,
+                UsuarioContract.UsuariosEntry.AVATAR,
+                UsuarioContract.UsuariosEntry.FECHA_NACIMIENTO
         };
-
+        String selection = UsuarioContract.UsuariosEntry.GUARDADO+ " = 'false'";
         Cursor cursor = db.query(
                 UsuarioContract.UsuariosEntry.TABLE_NAME,   // The table to query
                 projection,             // The array of columns to return (pass null to get all)
-                null,          // The values for the WHERE clause
-                null,          // The values for the WHERE clause
+                selection,          // The values for the WHERE clause
+                null,          // The vadatoslues for the WHERE clause
                 null,                   // don't filter by row groups
                 null,                   // don't filter by row groups
                 null             // The sort order
@@ -168,17 +256,20 @@ public Context contex;
                     cursor.getColumnIndexOrThrow( UsuarioContract.UsuariosEntry.USERNAME));
             String password=cursor.getString(
                     cursor.getColumnIndexOrThrow( UsuarioContract.UsuariosEntry.PASSWORD));
-                         /* String avatar=cursor.getString(
-                                 cursor.getColumnIndexOrThrow( UsuarioContract.UsuariosEntry.AVATAR));*/
+            String avatar=cursor.getString(
+                                 cursor.getColumnIndexOrThrow( UsuarioContract.UsuariosEntry.AVATAR));
+            String fecha=cursor.getString(
+                    cursor.getColumnIndexOrThrow( UsuarioContract.UsuariosEntry.FECHA_NACIMIENTO));
 
 
 
             Log.i("usernew",nombre);
             Log.i("usernew",password);
-            user= new Usuario();
+           // user= new Usuario();
             user.setUserName(nombre);
             user.setPassword(password);
-            user.setAvatar("");
+            user.setAvatar(avatar);
+            user.setFechaNacimiento(fecha);
             user.setId(itemId+"");
             listUsuario.add(user);
 

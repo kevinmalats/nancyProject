@@ -6,9 +6,18 @@ public class Usuario {
     private String id;
     private String fechaNacimiento;
     private  String avatar;
+    private  boolean guardado;
 
     public void setFechaNacimiento(String fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public boolean isGuardado() {
+        return guardado;
+    }
+
+    public void setGuardado(boolean guardado) {
+        this.guardado = guardado;
     }
 
     public String getFechaNacimiento() {

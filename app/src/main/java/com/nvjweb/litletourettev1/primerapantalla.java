@@ -92,7 +92,8 @@ public class primerapantalla extends AppCompatActivity {
         String[] projection = {
                 BaseColumns._ID,
                 UsuarioContract.UsuariosEntry.USERNAME,
-                UsuarioContract.UsuariosEntry.PASSWORD
+                UsuarioContract.UsuariosEntry.PASSWORD,
+                UsuarioContract.UsuariosEntry.AVATAR
         };
         String selection = UsuarioContract.UsuariosEntry.USERNAME+ " = '"+ingresanombre.getText()+"' And "+UsuarioContract.UsuariosEntry.PASSWORD
         +"='"+ingresaclave.getText()+"'";
@@ -113,15 +114,15 @@ public class primerapantalla extends AppCompatActivity {
                     cursor.getColumnIndexOrThrow( UsuarioContract.UsuariosEntry.USERNAME));
             String password=cursor.getString(
                     cursor.getColumnIndexOrThrow( UsuarioContract.UsuariosEntry.PASSWORD));
-            /* String avatar=cursor.getString(
-                    cursor.getColumnIndexOrThrow( UsuarioContract.UsuariosEntry.AVATAR));*/
+             String avatar=cursor.getString(
+                    cursor.getColumnIndexOrThrow( UsuarioContract.UsuariosEntry.AVATAR));
 
             Log.i("usernew",nombre);
             Log.i("usernew",password);
              user= new Usuario();
              user.setUserName(nombre);
              user.setPassword(password);
-             user.setAvatar("");
+             user.setAvatar(avatar);
              user.setId(itemId+"");
              loginOk();
 

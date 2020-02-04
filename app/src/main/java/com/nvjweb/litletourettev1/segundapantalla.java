@@ -86,7 +86,7 @@ public class segundapantalla extends AppCompatActivity {
                 {
                     saveContentProvider();
 
-                    Toast.makeText(getApplicationContext(),"no hay internet", Toast.LENGTH_LONG).show();
+                   // Toast.makeText(getApplicationContext(),"no hay internet", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -110,11 +110,12 @@ public class segundapantalla extends AppCompatActivity {
         user.setUserName(ingresanombre.getText()+"");
         user.setPassword(ingresaclave.getText()+"");
         user.setAvatar(avatar);
-        user.setFechaNacimiento(txtedad+"");
+        user.setFechaNacimiento(txtedad.getText()+"");
         values.put(UsuarioContract.UsuariosEntry.USERNAME,user.getUserName());
         values.put(UsuarioContract.UsuariosEntry.PASSWORD,user.getPassword());
         values.put(UsuarioContract.UsuariosEntry.AVATAR,user.getAvatar());
         values.put(UsuarioContract.UsuariosEntry.FECHA_NACIMIENTO,user.getFechaNacimiento());
+        values.put(UsuarioContract.UsuariosEntry.GUARDADO,"false");
         long newRowId = db.insert(UsuarioContract.UsuariosEntry.TABLE_NAME, null, values);
         Log.i("rowId", newRowId+"");
         Intent itemintent = new Intent(segundapantalla.this, cuartapantalla.class);

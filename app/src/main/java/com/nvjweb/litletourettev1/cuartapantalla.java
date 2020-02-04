@@ -28,7 +28,7 @@ public class cuartapantalla extends AppCompatActivity {
         setContentView(R.layout.cuartapantalla);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         TareaInternet tareaInternet=new TareaInternet(getApplicationContext());
-        tareaInternet.execute();
+       tareaInternet.execute();
         db = FirebaseFirestore.getInstance();
         txtnombre=findViewById(R.id.txtnombre);
         imgavatar=findViewById(R.id.imgavatar);

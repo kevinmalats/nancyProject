@@ -5,8 +5,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class UsuarioHelper  extends SQLiteOpenHelper {
-    public static final int DATABASE_VERSION = 2;
-    public static final String DATABASE_NAME = "touretteDb2.db";
+    public static final int DATABASE_VERSION = 3;
+    public static final String DATABASE_NAME = "touretteDb6.db";
 
 
     public UsuarioHelper(Context context) {
@@ -19,9 +19,10 @@ public class UsuarioHelper  extends SQLiteOpenHelper {
 
                 +  UsuarioContract.UsuariosEntry.USERNAME + " TEXT NOT NULL,"
                 +  UsuarioContract.UsuariosEntry.PASSWORD + " TEXT NOT NULL,"
+                +  UsuarioContract.UsuariosEntry.AVATAR + " TEXT NOT NULL,"
                 +  UsuarioContract.UsuariosEntry.FECHA_NACIMIENTO + " TEXT NOT NULL,"
-                +  UsuarioContract.UsuariosEntry.AVATAR + " TEXT NOT NULL" +
-                ","
+                +  UsuarioContract.UsuariosEntry.GUARDADO + " TEXT NOT NULL,"
+
 
                 + "UNIQUE (" +UsuarioContract.UsuariosEntry._ID + "))");
 
